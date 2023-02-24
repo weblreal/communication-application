@@ -6,6 +6,7 @@ const Login = () => {
   const { users, setLoggedIn } = useContext(GlobalContext);
   const [emailInput, setEmail] = useState('');
   const [passwordInput, setPassword] = useState('');
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,13 +24,23 @@ const Login = () => {
       }
     }
     //not found in the localstorage
-    alert('Wrong Email or Password');
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    }, 3000);
     return false;
   };
 
   return (
     <div className="section-container">
       <h1>Login</h1>
+      <p
+        className={
+          error ? 'error-message-login shake-message' : 'error-message-login'
+        }
+      >
+        Wrong Email or Password
+      </p>
       <form
         // action="../pages/login-success.html"
         className="default-form"

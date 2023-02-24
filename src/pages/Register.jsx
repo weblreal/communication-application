@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ValidateEmail from '../components/ValidateEmail';
+import { GlobalContext } from '../components/GlobalContext';
 
-const Register = ({ users }) => {
+const Register = () => {
+  const { users } = useContext(GlobalContext);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,6 +51,7 @@ const Register = ({ users }) => {
       fullName: fullName,
       email: email,
       password: password,
+      isLoggedIn: false,
     };
     usersCopy.push(user);
     // update the localStorage

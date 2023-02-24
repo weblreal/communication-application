@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../components/GlobalContext';
 
-const Login = ({ users }) => {
+const Login = () => {
+  const { users, setLoggedIn } = useContext(GlobalContext);
   const [emailInput, setEmail] = useState('');
   const [passwordInput, setPassword] = useState('');
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -12,8 +15,9 @@ const Login = ({ users }) => {
       // check email & password
       if (emailInput === user.email && passwordInput === user.password) {
         const loggedIn = users.find(({ email }) => email === emailInput);
-
+        loggedIn.isLoggedIn = true;
         localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+        setLoggedIn(loggedIn);
         navigate('/loginsuccessful');
         return true;
       }

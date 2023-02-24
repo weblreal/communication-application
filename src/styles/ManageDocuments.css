@@ -17,7 +17,6 @@
 
 /*creates a border around down to message form*/
 .manage-documents-modal-container {
-  visibility: hidden;
   border-radius: 0.3rem;
   border: 0.125rem solid black;
   height: 15rem;

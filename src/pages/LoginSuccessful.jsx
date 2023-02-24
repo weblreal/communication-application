@@ -1,4 +1,8 @@
-const LoginSuccessful = ({ loggedIn }) => {
+import { useContext } from 'react';
+import { GlobalContext } from '../components/GlobalContext';
+
+const LoginSuccessful = () => {
+  const { loggedIn } = useContext(GlobalContext);
   return (
     <div className="section-container default">
       <h1>Login Successful</h1>

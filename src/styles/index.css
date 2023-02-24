@@ -157,7 +157,9 @@ label {
 .active-page {
   background-color: white;
 }
-
+.username-display {
+  margin-left: 0.5rem;
+}
 /*** 5.0 - Link ***/
 .return-home-register-success {
   color: blue;

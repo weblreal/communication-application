@@ -1,7 +1,16 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { useContext } from 'react';
+import { GlobalContext } from './GlobalContext';
 
-//! refactor this: use param to set active page
 const Navigation = () => {
+  const { loggedIn, setLoggedIn } = useContext(GlobalContext);
+
+  const handleLogout = () => {
+    loggedIn.isLoggedIn = false;
+    setLoggedIn(loggedIn);
+    localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+  };
+
   return (
     <>
       <nav className="nav-container">
@@ -34,6 +43,7 @@ const Navigation = () => {
             return isActive ? 'nav-button active-page' : 'nav-button';
           }}
           to="/logout"
+          onClick={() => handleLogout()}
         >
           Logout
         </NavLink>

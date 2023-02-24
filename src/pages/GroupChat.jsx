@@ -1,28 +1,22 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
+import { GlobalContext } from '../components/GlobalContext';
 import '../styles/GroupChat.css';
 
-// const chats = localStorage.getItem('chats')
-//   ? JSON.parse(localStorage.getItem('chats'))
-//   : [];
-
-// const loggedIn = localStorage.getItem('loggedIn')
-//   ? JSON.parse(localStorage.getItem('loggedIn'))
-//   : [];
-
-const GroupChat = ({ chats, loggedIn }) => {
+const GroupChat = () => {
+  const { chats, loggedIn, setChats } = useContext(GlobalContext);
   const date = new Date().toLocaleDateString('zh-CN').split('/').join('-');
   const time = new Date().toLocaleTimeString('en-US').slice(0, 8);
   const [newDate, setNewDate] = useState('');
-  const [chatArr, setChatsArr] = useState([]);
+
   const newMessage = useRef();
 
   useEffect(() => {
     if (!chats) return null;
-    setChatsArr(chats);
+    setChats(chats);
     setNewDate(`[${date} ${time}]`);
-  });
+  }, [chats]);
 
-  const renderMessage = chatArr.map((chat) => {
+  const renderMessage = chats.map((chat) => {
     return (
       <div
         key={chat.date}
@@ -50,10 +44,14 @@ const GroupChat = ({ chats, loggedIn }) => {
       sender: loggedIn.fullName,
       message: newMessage.current.value,
     };
-    setChatsArr((prevChat) => [...prevChat, chat]);
+    setChats((prevChat) => [...prevChat, chat]);
     chats.push(chat);
     localStorage.setItem('chats', JSON.stringify(chats));
     newMessage.current.value = '';
+  };
+
+  const reloadPage = () => {
+    window.location.reload();
   };
 
   return (
@@ -94,7 +92,7 @@ const GroupChat = ({ chats, loggedIn }) => {
             type="button"
             name="refresh"
             value="Refresh"
-            onClick={() => window.location.reload(false)}
+            onClick={() => reloadPage()}
           />
         </div>
       </form>

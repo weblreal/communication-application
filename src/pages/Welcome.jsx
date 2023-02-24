@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import Login from './Login';
 const Welcome = () => {
   return (
     <main>

@@ -1,0 +1,72 @@
+/* 
+* TABLE OF CONTENTS
+*
+* 1.0 - HEADER
+*
+* 2.0 - MESSAGE WARNING
+*
+* 3.0 - BUTTONS
+*
+*
+* import this css file if you want to create a confirm deletion modal
+*/
+
+/*creates a border around with fixed size */
+.delete-modal-container {
+  visibility: hidden;
+  border-radius: 0.3rem;
+  border: 0.125rem solid black;
+  height: 12rem;
+  width: 16rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+}
+
+/*** 1.0 - HEADER ***/
+.confirm-deletion-wrapper {
+  border-bottom: 0.125rem solid black;
+  height: 1.65rem;
+  width: 16rem;
+}
+
+.confirm-deletion-title {
+  position: absolute;
+  margin: 0.3rem 0 0 3rem;
+}
+
+/*** 2.0 - MESSAGE WARNING ***/
+.delete-modal-mid-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+}
+
+/*** 3.0 - BUTTONS ***/
+.delete-modal-button-wrapper {
+  padding-bottom: 1rem;
+}
+
+.modal-button {
+  border-radius: 0.5rem;
+  background-color: transparent;
+  margin-left: 1rem;
+  width: 5.5rem;
+  border: 0.2rem solid black;
+  height: 1.8rem;
+}
+
+.modal-button-highlight {
+  border-color: #0000ff;
+}
+
+.delete-modal-message {
+  font-weight: bold;
+}

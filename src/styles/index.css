@@ -21,6 +21,7 @@
   --cyan: #66ffff;
   --gray: #bfbfbf;
   --light-gray: #f0f0f0;
+  --red: rgb(209, 89, 89);
 }
 
 /*** 1.1 Default styling ***/
@@ -143,6 +144,20 @@ label {
   border-radius: 0.3125rem;
   height: 1.4375rem;
   padding: 0.3125rem;
+}
+
+/*** custom form ***/
+
+.error-message-registration {
+  color: var(--red);
+  font-size: 0.75rem;
+  margin: 0 0 0 19rem;
+  align-self: baseline;
+  height: 1rem;
+}
+
+.register-from {
+  gap: 1rem !important;
 }
 
 /*** 4.0 - REUSABLE NAV ***/

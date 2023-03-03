@@ -1,0 +1,44 @@
+/* 
+* TABLE OF CONTENTS
+*
+* 1.0 - TABLE
+*
+* 2.0 - SELECT 
+*
+* 3.0 - BUTTON
+*
+*/
+
+/*** 1.0 - TABLE ***/
+.add-sharing-form {
+  border-radius: 0.3rem;
+  border: 0.125rem solid black;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  height: 5rem;
+}
+
+/*** 2.0 - SELECT ***/
+.add-sharing-select {
+  width: 18rem;
+  height: 2.4rem;
+  text-align: center;
+  border: 0.125rem solid black;
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  appearance: none;
+  margin-right: 8rem;
+  background: url('../img/triangle-icon.png') no-repeat right white;
+  background-size: 2.3rem;
+}
+
+/*** 3.0 - BUTTON ***/
+.manage-documents-modal-button {
+  margin: 0;
+  width: 8rem;
+  height: 2rem;
+  position: relative;
+  /* right: 6rem; */
+}

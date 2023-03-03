@@ -5,8 +5,15 @@ import { GlobalContext } from '../components/GlobalContext';
 import TableEmpty from '../components/TableEmpty';
 
 const ManageUsers = () => {
-  const { users, setUsers, loggedIn, chats, setChats } =
-    useContext(GlobalContext);
+  const {
+    setChats,
+    setUsers,
+    setMyUploads,
+    users,
+    chats,
+    loggedIn,
+    myUploads,
+  } = useContext(GlobalContext);
   const [toDelete, setToDelete] = useState({});
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -54,7 +61,7 @@ const ManageUsers = () => {
             <td>Action</td>
           </tr>
         </thead>
-        <tbody id="tbody-users">
+        <tbody>
           {renderUsers}
           {<TableEmpty times={13 - users.length} />}
         </tbody>
@@ -66,6 +73,8 @@ const ManageUsers = () => {
           users={users}
           setChats={setChats}
           chats={chats}
+          myUploads={myUploads}
+          setMyUploads={setMyUploads}
         />
       )}
     </div>

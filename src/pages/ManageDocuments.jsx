@@ -5,12 +5,12 @@ import { useContext, useEffect, useReducer, useState } from 'react';
 import '../styles/ManageDocuments.css';
 import { GlobalContext } from '../components/GlobalContext';
 import TableEmpty from '../components/TableEmpty';
+import { Link } from 'react-router-dom';
 
 export const ACTIONS = {
   ADD_UPLOAD: 'add-upload',
   EDIT_UPLOAD: 'edit-upload',
   DELETE_UPLOAD: 'delete-upload',
-  SHARE_UPLOAD: 'share-upload',
 };
 
 const reducer = (myUploadsArr, action) => {
@@ -78,10 +78,27 @@ const ManageDocuments = () => {
           >
             Delete
           </button>
-          |<a className="button-table-modifier">Share</a>
+          |
+          <Link to={'share'} state={upload}>
+            Share
+          </Link>
         </td>
       </tr>
     );
+  });
+
+  let rowCount = 0;
+  const renderSharedUploads = myUploads.map((upload) => {
+    if (upload.sharedUploads.includes(loggedIn.fullName)) {
+      rowCount++;
+      return (
+        <tr key={upload.id} className="tr-shared-upload-table">
+          <td>{upload.label}</td>
+          <td>{upload.fileName}</td>
+          <td>{upload.ownerEmail}</td>
+        </tr>
+      );
+    }
   });
 
   return (
@@ -95,7 +112,7 @@ const ManageDocuments = () => {
             <td>Action</td>
           </tr>
         </thead>
-        <tbody id="tbody-myUploads">
+        <tbody>
           {renderUploads}
           <TableEmpty times={5 - userUploads.length} />
         </tbody>
@@ -109,8 +126,9 @@ const ManageDocuments = () => {
             <td>Shared by</td>
           </tr>
         </thead>
-        <tbody id="tbody-shared-upload">
-          <TableEmpty times={5} />
+        <tbody>
+          {renderSharedUploads}
+          <TableEmpty times={5 - rowCount} />
         </tbody>
       </table>
       {showAddUpload && (

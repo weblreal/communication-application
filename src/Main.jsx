@@ -10,6 +10,7 @@ import ManageUsers from './pages/ManageUsers';
 import ManageDocuments from './pages/ManageDocuments';
 import Navigation from './components/Navigation';
 import EditUsers from './pages/EditUsers';
+import Share from './pages/Share';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/ProtectiveRoute';
 import GlobalContextProvider from './components/GlobalContext';
@@ -35,7 +36,10 @@ const Main = () => {
                 <Route index element={<ManageUsers />} />
                 <Route path="editusers" element={<EditUsers />} />
               </Route>
-              <Route path="/managedocuments" element={<ManageDocuments />} />
+              <Route path="/managedocuments">
+                <Route index element={<ManageDocuments />} />
+                <Route path="share" element={<Share />} />
+              </Route>
             </Route>
           </Route>
           <Route path="/logout" element={<Logout />} />

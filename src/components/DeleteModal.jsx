@@ -2,6 +2,10 @@ import { ACTIONS } from '../pages/ManageDocuments';
 import '../styles/DeleteModal.css';
 import questionmark from '../img/question-mark.PNG';
 const DeleteModal = ({
+  setMyUploads,
+  selectedObj,
+  myUploads,
+  selectedToDelete,
   setShowDeleteModal,
   toDelete,
   users,
@@ -11,7 +15,8 @@ const DeleteModal = ({
 }) => {
   const pathname = window.location.pathname;
 
-  const handleDelete = () => {
+  // MANAGE USER
+  const handleDeleteUsers = () => {
     // UPDATE USERS
     users.splice(users.indexOf(toDelete), 1);
     localStorage.setItem('users', JSON.stringify(users));
@@ -22,16 +27,48 @@ const DeleteModal = ({
     );
     setChats(chatsUpdated);
     localStorage.setItem('chats', JSON.stringify(chatsUpdated));
+
+    // UPDATE MYUPLOADS
+    const myUploadsUpdated = myUploads.filter(
+      (uploads) => uploads.ownerEmail !== toDelete.email
+    );
+    myUploadsUpdated.map((upload) => {
+      if (upload.sharedUploads.includes(toDelete.fullName)) {
+        upload.sharedUploads.splice(
+          upload.sharedUploads.indexOf(toDelete.fullName),
+          1
+        );
+      }
+    });
+    setMyUploads(myUploadsUpdated);
+    localStorage.setItem('myUploads', JSON.stringify(myUploadsUpdated));
     setShowDeleteModal(false);
   };
 
+  // MANAGE DOCUMENTS
   const handleDeleteUploads = () => {
     dispatch({ type: ACTIONS.DELETE_UPLOAD, payload: toDelete });
     setShowDeleteModal(false);
   };
 
+  // SHARE
+  const handleDeleteShared = () => {
+    const indexToDelete = myUploads.findIndex(
+      (upload) => upload.id === selectedObj.id
+    );
+
+    myUploads[indexToDelete].sharedUploads.splice(
+      myUploads[indexToDelete].sharedUploads.indexOf(selectedToDelete),
+      1
+    );
+
+    setMyUploads(myUploads);
+    localStorage.setItem('myUploads', JSON.stringify(myUploads));
+    setShowDeleteModal(false);
+  };
+
   return (
-    <div className="delete-modal-container" id="delete-modal-container ">
+    <div className="delete-modal-container">
       <div className="confirm-deletion-wrapper">
         <p className="confirm-deletion-title">Confirm File Deletion</p>
         <button
@@ -49,9 +86,13 @@ const DeleteModal = ({
         <button
           className="modal-button modal-button-highlight"
           onClick={() => {
-            pathname === '/managedocuments'
-              ? handleDeleteUploads()
-              : handleDelete();
+            if (pathname === '/managedocuments') {
+              handleDeleteUploads();
+            } else if (pathname === '/manageuser') {
+              handleDeleteUsers();
+            } else {
+              handleDeleteShared();
+            }
           }}
         >
           Ok

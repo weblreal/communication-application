@@ -82,3 +82,7 @@
 .sender-name {
   margin: 0;
 }
+
+.message-sender {
+  padding-left: 0.5rem;
+}

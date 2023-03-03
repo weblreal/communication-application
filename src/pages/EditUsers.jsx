@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ValidateEmail from '../components/ValidateEmail';
 import { GlobalContext } from '../components/GlobalContext';
@@ -6,14 +6,18 @@ import { GlobalContext } from '../components/GlobalContext';
 const EditUsers = () => {
   const { users, chats, myUploads, loggedIn } = useContext(GlobalContext);
 
+  const [user, setUser] = useState({});
+  const [userUploads, setuserUploads] = useState([]);
+  const [userChats, setUserChats] = useState({});
+  const fullNameValue = useRef();
+  const emailValue = useRef();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({});
-  const [userChats, setUserChats] = useState({});
-  const [userUploads, setuserUploads] = useState([]);
-  const fullNameValue = useRef();
-  const emailValue = useRef();
+  const userObj = useMemo(
+    () => users.find((user) => user.id === location.state),
+    [users]
+  );
 
   useEffect(() => {
     const id = location.state;
@@ -63,6 +67,19 @@ const EditUsers = () => {
       }
     }
 
+    // shared uploads
+    myUploads.map((upload) => {
+      if (upload.sharedUploads.includes(userObj.fullName)) {
+        upload.sharedUploads.splice(
+          upload.sharedUploads.indexOf(userObj.fullName),
+          1,
+          fullNameInput
+        );
+      }
+      return upload;
+    });
+
+    localStorage.setItem('myUploads', JSON.stringify(myUploads));
     // Update for USERS object
     user.fullName = fullNameInput;
     user.email = emailInput;
@@ -83,6 +100,7 @@ const EditUsers = () => {
       loggedIn.fullName = fullNameInput;
       loggedIn.email = emailInput;
     }
+
     localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
     localStorage.setItem('myUploads', JSON.stringify(myUploads));
     localStorage.setItem('chats', JSON.stringify(chats));
@@ -102,7 +120,6 @@ const EditUsers = () => {
             className="input-form"
             type="text"
             name="full-name"
-            id="full-name"
           />
         </div>
         <div>
@@ -113,7 +130,6 @@ const EditUsers = () => {
             className="input-form"
             type="email"
             name="email"
-            id="email"
           />
         </div>
         <div>

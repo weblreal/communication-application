@@ -7,7 +7,6 @@ const Login = () => {
   const [emailInput, setEmail] = useState('');
   const [passwordInput, setPassword] = useState('');
   const [error, setError] = useState(false);
-
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -41,16 +40,10 @@ const Login = () => {
       >
         Wrong Email or Password
       </p>
-      <form
-        // action="../pages/login-success.html"
-        className="default-form"
-        id="login-form"
-        onSubmit={handleSubmit}
-      >
+      <form className="default-form" onSubmit={handleSubmit}>
         <div>
           <label>Email</label>
           <input
-            id="email-login-input"
             className="input-form"
             type="mail"
             name="email"
@@ -62,7 +55,6 @@ const Login = () => {
         <div>
           <label>Password</label>
           <input
-            id="password-login-input"
             className="input-form"
             type="password"
             name="password"
@@ -72,7 +64,6 @@ const Login = () => {
         </div>
         <div>
           <input
-            id="login-button"
             className="form-button login-submit-button"
             type="submit"
             value="Login"

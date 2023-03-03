@@ -40,7 +40,6 @@ const EditModal = ({ setShowEditModal, toEdit, dispatch }) => {
             className="file-description-input"
             type="text"
             name="file-description-edit"
-            id="label"
             defaultValue={toEdit.label}
             ref={label}
           />

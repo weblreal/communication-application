@@ -1,7 +1,7 @@
-import { useContext, useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ValidateEmail from '../components/ValidateEmail';
-import { GlobalContext } from '../context/GlobalContext';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 const Register = () => {
   const initialValue = {
@@ -12,7 +12,7 @@ const Register = () => {
     isLoggedIn: false,
   };
 
-  const { users } = useContext(GlobalContext);
+  const { users } = useGlobalContext();
   const [userValues, setUserValues] = useState(initialValue);
   const [formErrors, setFormErrors] = useState({});
   const confirmPassword = useRef();

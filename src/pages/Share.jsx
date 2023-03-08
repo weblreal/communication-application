@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { GlobalContext } from '../context/GlobalContext';
+import React, { useEffect, useRef, useState } from 'react';
 import TableEmpty from '../components/TableEmpty';
 import '../styles/Share.css';
 import DeleteModal from '../components/DeleteModal';
 import { useLocation } from 'react-router-dom';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 export default function Share() {
-  const { myUploads, setMyUploads, users, loggedIn } =
-    useContext(GlobalContext);
+  const { myUploads, setMyUploads, users, loggedIn } = useGlobalContext();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const selectButton = useRef('');
   const dataSelected = useLocation().state;

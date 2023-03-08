@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef, useContext } from 'react';
-import { GlobalContext } from '../context/GlobalContext';
+import { useEffect, useState, useRef } from 'react';
 import '../styles/GroupChat.css';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 const GroupChat = () => {
-  const { chats, loggedIn, setChats } = useContext(GlobalContext);
+  const { chats, loggedIn, setChats } = useGlobalContext();
   const [newDate, setNewDate] = useState('');
   const newMessage = useRef();
 

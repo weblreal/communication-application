@@ -1,8 +1,8 @@
 import DeleteModal from '../components/DeleteModal';
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../context/GlobalContext';
+import { useEffect, useState } from 'react';
 import TableEmpty from '../components/TableEmpty';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 const ManageUsers = () => {
   const {
@@ -13,7 +13,7 @@ const ManageUsers = () => {
     chats,
     loggedIn,
     myUploads,
-  } = useContext(GlobalContext);
+  } = useGlobalContext();
   const [toDelete, setToDelete] = useState({});
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 

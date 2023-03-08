@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from '../context/GlobalContext';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 const Login = () => {
-  const { users, setLoggedIn } = useContext(GlobalContext);
+  const { users, setLoggedIn } = useGlobalContext();
   const [emailInput, setEmail] = useState('');
   const [passwordInput, setPassword] = useState('');
   const [error, setError] = useState(false);

@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ValidateEmail from '../components/ValidateEmail';
-import { GlobalContext } from '../context/GlobalContext';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 const EditUsers = () => {
-  const { users, chats, myUploads, loggedIn } = useContext(GlobalContext);
+  const { users, chats, myUploads, loggedIn } = useGlobalContext();
 
   const [user, setUser] = useState({});
   const [userUploads, setuserUploads] = useState([]);

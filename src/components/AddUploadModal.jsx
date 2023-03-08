@@ -1,9 +1,9 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import { ACTIONS } from '../pages/ManageDocuments';
-import { GlobalContext } from '../context/GlobalContext';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 const AddUploadModal = ({ setShowAddUpload, dispatch }) => {
-  const { loggedIn } = useContext(GlobalContext);
+  const { loggedIn } = useGlobalContext();
   const labelValue = useRef();
   const fileNameValue = useRef();
 

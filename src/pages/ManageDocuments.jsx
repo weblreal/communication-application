@@ -1,11 +1,11 @@
 import AddUploadModal from '../components/AddUploadModal';
 import EditModal from '../components/EditModal';
 import DeleteModal from '../components/DeleteModal';
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import '../styles/ManageDocuments.css';
-import { GlobalContext } from '../context/GlobalContext';
 import TableEmpty from '../components/TableEmpty';
 import { Link } from 'react-router-dom';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 export const ACTIONS = {
   ADD_UPLOAD: 'add-upload',
@@ -37,7 +37,7 @@ const reducer = (myUploadsArr, action) => {
 };
 
 const ManageDocuments = () => {
-  const { loggedIn, myUploads, setMyUploads } = useContext(GlobalContext);
+  const { loggedIn, myUploads, setMyUploads } = useGlobalContext();
   const [myUploadsArr, dispatch] = useReducer(reducer, [...myUploads]);
   const [toEdit, setToEdit] = useState('');
   const [toDelete, setToDelete] = useState('');

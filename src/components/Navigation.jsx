@@ -1,9 +1,8 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { useContext } from 'react';
-import { GlobalContext } from '../context/GlobalContext';
+import useGlobalContext from '../hooks/useGlobalContext';
 
 const Navigation = () => {
-  const { loggedIn, setLoggedIn } = useContext(GlobalContext);
+  const { loggedIn, setLoggedIn } = useGlobalContext();
 
   const handleLogout = () => {
     loggedIn.isLoggedIn = false;

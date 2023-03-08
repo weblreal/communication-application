@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from '../components/GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 
 const Login = () => {
   const { users, setLoggedIn } = useContext(GlobalContext);
@@ -16,7 +16,6 @@ const Login = () => {
       if (emailInput === user.email && passwordInput === user.password) {
         const loggedIn = users.find(({ email }) => email === emailInput);
         loggedIn.isLoggedIn = true;
-        localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
         setLoggedIn(loggedIn);
         navigate('/loginsuccessful');
         return true;

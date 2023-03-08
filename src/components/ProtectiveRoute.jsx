@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { GlobalContext } from './GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 
 const ProtectedRoute = () => {
   const { loggedIn } = useContext(GlobalContext);

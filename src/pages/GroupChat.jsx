@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useContext } from 'react';
-import { GlobalContext } from '../components/GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 import '../styles/GroupChat.css';
 
 const GroupChat = () => {

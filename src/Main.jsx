@@ -13,7 +13,7 @@ import EditUsers from './pages/EditUsers';
 import Share from './pages/Share';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './components/ProtectiveRoute';
-import GlobalContextProvider from './components/GlobalContext';
+import GlobalContextProvider from './context/GlobalContext';
 
 const Main = () => {
   return (

@@ -3,7 +3,7 @@ import EditModal from '../components/EditModal';
 import DeleteModal from '../components/DeleteModal';
 import { useContext, useEffect, useReducer, useState } from 'react';
 import '../styles/ManageDocuments.css';
-import { GlobalContext } from '../components/GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 import TableEmpty from '../components/TableEmpty';
 import { Link } from 'react-router-dom';
 

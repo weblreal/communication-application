@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useContext } from 'react';
-import { GlobalContext } from './GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 
 const Navigation = () => {
   const { loggedIn, setLoggedIn } = useContext(GlobalContext);

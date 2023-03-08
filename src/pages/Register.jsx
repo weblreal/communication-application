@@ -1,7 +1,7 @@
 import { useContext, useState, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ValidateEmail from '../components/ValidateEmail';
-import { GlobalContext } from '../components/GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 
 const Register = () => {
   const initialValue = {

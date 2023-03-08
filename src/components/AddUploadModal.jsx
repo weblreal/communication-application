@@ -1,6 +1,6 @@
 import { useContext, useRef } from 'react';
 import { ACTIONS } from '../pages/ManageDocuments';
-import { GlobalContext } from './GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 
 const AddUploadModal = ({ setShowAddUpload, dispatch }) => {
   const { loggedIn } = useContext(GlobalContext);

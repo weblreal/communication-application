@@ -1,7 +1,7 @@
 import DeleteModal from '../components/DeleteModal';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../components/GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 import TableEmpty from '../components/TableEmpty';
 
 const ManageUsers = () => {

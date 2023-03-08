@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { GlobalContext } from '../components/GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 import TableEmpty from '../components/TableEmpty';
 import '../styles/Share.css';
 import DeleteModal from '../components/DeleteModal';

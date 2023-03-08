@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ValidateEmail from '../components/ValidateEmail';
-import { GlobalContext } from '../components/GlobalContext';
+import { GlobalContext } from '../context/GlobalContext';
 
 const EditUsers = () => {
   const { users, chats, myUploads, loggedIn } = useContext(GlobalContext);

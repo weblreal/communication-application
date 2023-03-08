@@ -10,43 +10,31 @@ const Navigation = () => {
     localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
   };
 
+  const links = [
+    { label: 'Group Chat', path: '/groupchat' },
+    { label: 'Manage Users', path: '/manageuser' },
+    { label: 'Manage Documents', path: '/managedocuments' },
+    { label: 'Logout', path: '/logout', onClick: () => handleLogout() },
+  ];
+
+  const renderedLinks = links.map((link) => {
+    return (
+      <NavLink
+        key={link.label}
+        className={({ isActive }) => {
+          return isActive ? 'nav-button active-page' : 'nav-button';
+        }}
+        to={link.path}
+        onClick={link.onClick && link.onClick}
+      >
+        {link.label}
+      </NavLink>
+    );
+  });
+
   return (
     <>
-      <nav className="nav-container">
-        <NavLink
-          className={({ isActive }) => {
-            return isActive ? 'nav-button active-page' : 'nav-button';
-          }}
-          to="/groupchat"
-        >
-          Group Chat
-        </NavLink>
-        <NavLink
-          className={({ isActive }) => {
-            return isActive ? 'nav-button active-page' : 'nav-button';
-          }}
-          to="/manageuser"
-        >
-          Manage Users
-        </NavLink>
-        <NavLink
-          className={({ isActive }) => {
-            return isActive ? 'nav-button active-page' : 'nav-button';
-          }}
-          to="/managedocuments"
-        >
-          Manage Documents
-        </NavLink>
-        <NavLink
-          className={({ isActive }) => {
-            return isActive ? 'nav-button active-page' : 'nav-button';
-          }}
-          to="/logout"
-          onClick={() => handleLogout()}
-        >
-          Logout
-        </NavLink>
-      </nav>
+      <nav className="nav-container">{renderedLinks}</nav>
       <Outlet />
     </>
   );

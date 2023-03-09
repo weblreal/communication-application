@@ -5,16 +5,17 @@ const Navigation = () => {
   const { loggedIn, setLoggedIn } = useGlobalContext();
 
   const handleLogout = () => {
-    loggedIn.isLoggedIn = false;
-    setLoggedIn(loggedIn);
-    localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+    const copyLoggedIn = { ...loggedIn };
+    copyLoggedIn.isLoggedIn = false;
+    setLoggedIn(copyLoggedIn);
   };
 
+  // Array of Link names and path
   const links = [
     { label: 'Group Chat', path: '/groupchat' },
     { label: 'Manage Users', path: '/manageuser' },
     { label: 'Manage Documents', path: '/managedocuments' },
-    { label: 'Logout', path: '/logout', onClick: () => handleLogout() },
+    { label: 'Logout', path: '/logout', logout: () => handleLogout() },
   ];
 
   const renderedLinks = links.map((link) => {
@@ -25,7 +26,7 @@ const Navigation = () => {
           return isActive ? 'nav-button active-page' : 'nav-button';
         }}
         to={link.path}
-        onClick={link.onClick && link.onClick}
+        onClick={link.logout && link.logout}
       >
         {link.label}
       </NavLink>

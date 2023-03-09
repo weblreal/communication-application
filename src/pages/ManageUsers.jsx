@@ -1,25 +1,14 @@
 import DeleteModal from '../components/DeleteModal';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TableEmpty from '../components/TableEmpty';
 import useGlobalContext from '../hooks/useGlobalContext';
 
 const ManageUsers = () => {
-  const {
-    setChats,
-    setUsers,
-    setMyUploads,
-    users,
-    chats,
-    loggedIn,
-    myUploads,
-  } = useGlobalContext();
+  const { setChats, setMyUploads, users, chats, loggedIn, myUploads } =
+    useGlobalContext();
   const [toDelete, setToDelete] = useState({});
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  useEffect(() => {
-    setUsers([...users]);
-  }, []);
 
   const renderUsers = users.map((user) => {
     return (
@@ -34,7 +23,7 @@ const ManageUsers = () => {
           >
             Edit
           </Link>
-          {loggedIn.id !== user.id ? (
+          {loggedIn.id !== user.id && (
             <button
               className="delete-button button-table-modifier"
               onClick={() => {
@@ -44,7 +33,7 @@ const ManageUsers = () => {
             >
               | Delete
             </button>
-          ) : null}
+          )}
         </td>
       </tr>
     );

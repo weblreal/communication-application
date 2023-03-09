@@ -80,7 +80,7 @@ const EditUsers = () => {
   const updateMyUploads = (fullNameInput, emailInput) => {
     const copyUserUploads = [...userUploads];
 
-    copyUserUploads.map((upload) => {
+    copyUserUploads.forEach((upload) => {
       upload.ownerEmail = emailInput;
       upload.fileOwner = fullNameInput;
     });

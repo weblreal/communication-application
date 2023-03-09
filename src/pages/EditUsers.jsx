@@ -1,11 +1,18 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ValidateEmail from '../helper/ValidateEmail';
 import useGlobalContext from '../hooks/useGlobalContext';
+import validation from '../helper/EditUserValidation';
 
 const EditUsers = () => {
-  const { users, chats, myUploads, loggedIn, setMyUploads, setUsers } =
-    useGlobalContext();
+  const {
+    users,
+    chats,
+    myUploads,
+    loggedIn,
+    setMyUploads,
+    setUsers,
+    setLoggedIn,
+  } = useGlobalContext();
 
   const [user, setUser] = useState({});
   const [userUploads, setuserUploads] = useState([]);
@@ -23,53 +30,19 @@ const EditUsers = () => {
   // inital setup for userUploads, userChats, and user
   useEffect(() => {
     const user = users.find((user) => user.id === location.state);
+    setUser(user);
+
     const userChats = chats.filter(({ sender }) => sender === user.fullName);
+    setUserChats(userChats);
+
     const userUploads = myUploads.filter(
       ({ ownerEmail }) => ownerEmail === user.email
     );
     setuserUploads(userUploads);
-    setUserChats(userChats);
-    setUser(user);
   }, []);
 
-  // validate fields in edit inputs
-  const validation = (fullNameInput, emailInput) => {
-    if (!fullNameInput.trim()) {
-      alert('Please enter full name');
-      return false;
-    }
-
-    if (!emailInput) {
-      alert('Please enter email');
-      return false;
-    }
-
-    // check if email already exist
-    if (!ValidateEmail(emailInput)) {
-      alert('Invalid email');
-      return false;
-    }
-
-    // store all emails in the userObj
-    const emails = [];
-    users.map((user) => {
-      emails.push(user.email);
-    });
-
-    emails.splice(users.indexOf(user), 1);
-    // loop emails except current user
-    for (let email of emails) {
-      if (email === emailInput) {
-        alert('Email already exist');
-        return false;
-      }
-    }
-    return true;
-  };
-
-  const updateMyUploads = (fullNameInput) => {
-    // shared uploads
-    const copyMyUploads = myUploads;
+  const updateShareUploads = (fullNameInput) => {
+    const copyMyUploads = [...myUploads];
     copyMyUploads.forEach((upload) => {
       if (upload.sharedUploads.includes(userObj.fullName)) {
         upload.sharedUploads.splice(
@@ -83,15 +56,44 @@ const EditUsers = () => {
   };
 
   const updateUsers = (fullNameInput, emailInput) => {
-    const copyUser = user;
-    const copyUsers = users;
+    const copyUsers = [...users];
+
     const updatedCopyUser = {
-      ...copyUser,
+      ...user,
       fullName: fullNameInput,
       email: emailInput,
     };
+
     copyUsers.splice(copyUsers.indexOf(user), 1, updatedCopyUser);
-    setUsers([...copyUsers]);
+
+    setUsers(copyUsers);
+  };
+
+  const updateChats = (fullNameInput) => {
+    const copyUserChats = [...userChats];
+
+    copyUserChats.forEach((chat) => {
+      chat.sender = fullNameInput;
+    });
+  };
+
+  const updateMyUploads = (fullNameInput, emailInput) => {
+    const copyUserUploads = [...userUploads];
+
+    copyUserUploads.map((upload) => {
+      upload.ownerEmail = emailInput;
+      upload.fileOwner = fullNameInput;
+    });
+  };
+
+  const updateLoggedIn = (fullNameInput, emailInput) => {
+    const copyLoggedIn = { ...loggedIn };
+    const updatedLoggedInObj = {
+      ...copyLoggedIn,
+      fullName: fullNameInput,
+      email: emailInput,
+    };
+    setLoggedIn(updatedLoggedInObj);
   };
 
   const handleSubmit = (e) => {
@@ -99,37 +101,28 @@ const EditUsers = () => {
     const fullNameInput = fullNameValue.current.value;
     const emailInput = emailValue.current.value;
 
-    const validate = validation(fullNameInput, emailInput);
-
+    // Validate inputs
+    const validate = validation(fullNameInput, emailInput, users, user);
     if (!validate) return;
 
-    // Update SHAREDUPLOADS
-    updateMyUploads(fullNameInput);
+    // Update SHAREDUPLOADS localstorage
+    updateShareUploads(fullNameInput);
 
-    // Update for USERS object
+    // Update USERS localstorage
     updateUsers(fullNameInput, emailInput);
 
-    // Update for CHATS object
-    userChats.map((chat) => {
-      chat.sender = fullNameInput;
-    });
+    // Update for CHATS localstorage
+    updateChats(fullNameInput);
 
     // Update for MYUPLOADS object
-    userUploads.map((upload) => {
-      upload.ownerEmail = emailInput;
-      upload.fileOwner = fullNameInput;
-    });
+    updateMyUploads(fullNameInput, emailInput);
 
-    // Update for LOGGEDIN object
+    // only trigger update when loggedIn user selected
     if (loggedIn.id === user.id) {
-      loggedIn.fullName = fullNameInput;
-      loggedIn.email = emailInput;
+      // Update for LOGGEDIN object
+      updateLoggedIn(fullNameInput, emailInput);
     }
 
-    // localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
-    // localStorage.setItem('myUploads', JSON.stringify(myUploads));
-    // localStorage.setItem('chats', JSON.stringify(chats));
-    // localStorage.setItem('users', JSON.stringify(users));
     navigate('/manageuser');
   };
 

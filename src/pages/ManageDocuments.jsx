@@ -45,10 +45,12 @@ const ManageDocuments = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  // filter to display only the current user uploads
   const userUploads = myUploadsArr.filter(
     ({ ownerEmail }) => ownerEmail === loggedIn.email
   );
 
+  // update local storage of myUploads
   useEffect(() => {
     setMyUploads(myUploadsArr);
   }, [myUploadsArr]);
@@ -87,6 +89,7 @@ const ManageDocuments = () => {
     );
   });
 
+  // rowCount to keep track of how many empty row will be rendered
   let rowCount = 0;
   const renderSharedUploads = myUploads.map((upload) => {
     if (upload.sharedUploads.includes(loggedIn.fullName)) {

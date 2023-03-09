@@ -19,9 +19,9 @@ const EditUsers = () => {
     [users]
   );
 
+  // inital setup for userUploads, userChats, and user
   useEffect(() => {
-    const id = location.state;
-    const user = users.find((user) => user.id === id);
+    const user = users.find((user) => user.id === location.state);
     const userChats = chats.filter(({ sender }) => sender === user.fullName);
     const userUploads = myUploads.filter(
       ({ ownerEmail }) => ownerEmail === user.email
@@ -31,8 +31,8 @@ const EditUsers = () => {
     setUser(user);
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // validate fields in edit inputs
+  const validation = () => {
     const fullNameInput = fullNameValue.current.value;
     const emailInput = emailValue.current.value;
 
@@ -66,9 +66,20 @@ const EditUsers = () => {
         return false;
       }
     }
+    return true;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const fullNameInput = fullNameValue.current.value;
+    const emailInput = emailValue.current.value;
+    const validate = validation();
+
+    if (!validate) return;
 
     // shared uploads
-    myUploads.map((upload) => {
+    const copyMyUploads = myUploads;
+    copyMyUploads.map((upload) => {
       if (upload.sharedUploads.includes(userObj.fullName)) {
         upload.sharedUploads.splice(
           upload.sharedUploads.indexOf(userObj.fullName),
@@ -79,7 +90,8 @@ const EditUsers = () => {
       return upload;
     });
 
-    localStorage.setItem('myUploads', JSON.stringify(myUploads));
+    localStorage.setItem('myUploads', JSON.stringify(copyMyUploads));
+
     // Update for USERS object
     user.fullName = fullNameInput;
     user.email = emailInput;

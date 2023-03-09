@@ -4,7 +4,7 @@ import ValidateEmail from '../helper/ValidateEmail';
 import useGlobalContext from '../hooks/useGlobalContext';
 
 const EditUsers = () => {
-  const { users, chats, myUploads, loggedIn, setMyUploads } =
+  const { users, chats, myUploads, loggedIn, setMyUploads, setUsers } =
     useGlobalContext();
 
   const [user, setUser] = useState({});
@@ -14,7 +14,7 @@ const EditUsers = () => {
   const emailValue = useRef();
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(user);
+
   const userObj = useMemo(
     () => users.find((user) => user.id === location.state),
     [users]
@@ -82,6 +82,18 @@ const EditUsers = () => {
     setMyUploads(copyMyUploads);
   };
 
+  const updateUsers = (fullNameInput, emailInput) => {
+    const copyUser = user;
+    const copyUsers = users;
+    const updatedCopyUser = {
+      ...copyUser,
+      fullName: fullNameInput,
+      email: emailInput,
+    };
+    copyUsers.splice(copyUsers.indexOf(user), 1, updatedCopyUser);
+    setUsers([...copyUsers]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const fullNameInput = fullNameValue.current.value;
@@ -95,9 +107,7 @@ const EditUsers = () => {
     updateMyUploads(fullNameInput);
 
     // Update for USERS object
-    const copyUser = user;
-    user.fullName = fullNameInput;
-    user.email = emailInput;
+    updateUsers(fullNameInput, emailInput);
 
     // Update for CHATS object
     userChats.map((chat) => {
@@ -116,10 +126,10 @@ const EditUsers = () => {
       loggedIn.email = emailInput;
     }
 
-    localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
-    localStorage.setItem('myUploads', JSON.stringify(myUploads));
-    localStorage.setItem('chats', JSON.stringify(chats));
-    localStorage.setItem('users', JSON.stringify(users));
+    // localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+    // localStorage.setItem('myUploads', JSON.stringify(myUploads));
+    // localStorage.setItem('chats', JSON.stringify(chats));
+    // localStorage.setItem('users', JSON.stringify(users));
     navigate('/manageuser');
   };
 

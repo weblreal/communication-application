@@ -4,7 +4,8 @@ import ValidateEmail from '../helper/ValidateEmail';
 import useGlobalContext from '../hooks/useGlobalContext';
 
 const EditUsers = () => {
-  const { users, chats, myUploads, loggedIn } = useGlobalContext();
+  const { users, chats, myUploads, loggedIn, setMyUploads } =
+    useGlobalContext();
 
   const [user, setUser] = useState({});
   const [userUploads, setuserUploads] = useState([]);
@@ -13,7 +14,7 @@ const EditUsers = () => {
   const emailValue = useRef();
   const location = useLocation();
   const navigate = useNavigate();
-
+  console.log(user);
   const userObj = useMemo(
     () => users.find((user) => user.id === location.state),
     [users]
@@ -32,10 +33,7 @@ const EditUsers = () => {
   }, []);
 
   // validate fields in edit inputs
-  const validation = () => {
-    const fullNameInput = fullNameValue.current.value;
-    const emailInput = emailValue.current.value;
-
+  const validation = (fullNameInput, emailInput) => {
     if (!fullNameInput.trim()) {
       alert('Please enter full name');
       return false;
@@ -69,17 +67,10 @@ const EditUsers = () => {
     return true;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const fullNameInput = fullNameValue.current.value;
-    const emailInput = emailValue.current.value;
-    const validate = validation();
-
-    if (!validate) return;
-
+  const updateMyUploads = (fullNameInput) => {
     // shared uploads
     const copyMyUploads = myUploads;
-    copyMyUploads.map((upload) => {
+    copyMyUploads.forEach((upload) => {
       if (upload.sharedUploads.includes(userObj.fullName)) {
         upload.sharedUploads.splice(
           upload.sharedUploads.indexOf(userObj.fullName),
@@ -87,12 +78,24 @@ const EditUsers = () => {
           fullNameInput
         );
       }
-      return upload;
     });
+    setMyUploads(copyMyUploads);
+  };
 
-    localStorage.setItem('myUploads', JSON.stringify(copyMyUploads));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const fullNameInput = fullNameValue.current.value;
+    const emailInput = emailValue.current.value;
+
+    const validate = validation(fullNameInput, emailInput);
+
+    if (!validate) return;
+
+    // Update SHAREDUPLOADS
+    updateMyUploads(fullNameInput);
 
     // Update for USERS object
+    const copyUser = user;
     user.fullName = fullNameInput;
     user.email = emailInput;
 

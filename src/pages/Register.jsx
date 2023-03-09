@@ -1,6 +1,6 @@
 import { useState, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ValidateEmail from '../components/ValidateEmail';
+import ValidateEmail from '../helper/ValidateEmail';
 import useGlobalContext from '../hooks/useGlobalContext';
 
 const Register = () => {

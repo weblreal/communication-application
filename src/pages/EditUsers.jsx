@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ValidateEmail from '../components/ValidateEmail';
+import ValidateEmail from '../helper/ValidateEmail';
 import useGlobalContext from '../hooks/useGlobalContext';
 
 const EditUsers = () => {

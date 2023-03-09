@@ -15,6 +15,7 @@ export default function Share() {
   );
   const [selectedToDelete, setSelectedToDelete] = useState('');
 
+  // display list of name of the user who selected to be shared with
   const renderShared = selectedObj.sharedUploads.map((shared) => {
     return (
       <tr key={shared}>
@@ -34,6 +35,7 @@ export default function Share() {
     );
   });
 
+  // display user name in the dropdown option
   const renderOptions = users.map((user) => {
     return user.fullName === loggedIn.fullName ? (
       ''
@@ -42,15 +44,18 @@ export default function Share() {
     );
   });
 
+  // selected user will be added in the sharedUploads array
   const handleAddShare = () => {
     const toShareUser = selectButton.current.value;
+    // condition to avoid duplication
     if (selectedObj.sharedUploads.includes(toShareUser)) return;
 
     selectedObj.sharedUploads = [...selectedObj.sharedUploads, toShareUser];
     setSelectedObj({ ...selectedObj });
   };
 
-  const updateShare = () => {
+  // update myUploads in the local storage
+  const updateMyUploads = () => {
     const indexSelected = myUploads.findIndex(
       (upload) => upload.id === dataSelected.id
     );
@@ -60,7 +65,7 @@ export default function Share() {
   };
 
   useEffect(() => {
-    updateShare();
+    updateMyUploads();
   }, [selectedObj]);
 
   return (

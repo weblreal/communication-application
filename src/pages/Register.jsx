@@ -3,21 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import ValidateEmail from '../helper/ValidateEmail';
 import useGlobalContext from '../hooks/useGlobalContext';
 
-const Register = () => {
-  const initialValue = {
-    id: Number(new Date()),
-    fullName: '',
-    email: '',
-    password: '',
-    isLoggedIn: false,
-  };
+const initialValue = {
+  id: Number(new Date()),
+  fullName: '',
+  email: '',
+  password: '',
+  isLoggedIn: false,
+};
 
-  const { users } = useGlobalContext();
+const Register = () => {
+  const { users, setUsers } = useGlobalContext();
   const [userValues, setUserValues] = useState(initialValue);
   const [formErrors, setFormErrors] = useState({});
   const confirmPassword = useRef();
   const navigate = useNavigate();
 
+  // store array of emails in the {users} local storage
   const emails = useMemo(() => {
     return users.map((user) => user.email);
   }, [users]);
@@ -64,9 +65,7 @@ const Register = () => {
       password: userValues.password,
       isLoggedIn: false,
     };
-    users.push(newUser);
-    // update the localStorage
-    localStorage.setItem('users', JSON.stringify(users));
+    setUsers((prevUsers) => [...prevUsers, newUser]);
     navigate('/registersuccessful');
   };
 

@@ -1,19 +1,16 @@
-import { useEffect, useState, useRef } from 'react';
-import '../styles/GroupChat.css';
+import { useRef } from 'react';
 import useGlobalContext from '../hooks/useGlobalContext';
+import '../styles/GroupChat.css';
+
+const getDateTime = () => {
+  const date = new Date().toLocaleDateString('zh-CN').split('/').join('-');
+  const time = new Date().toLocaleTimeString('en-US').slice(0, 8);
+  return `[${date} ${time}]`;
+};
 
 const GroupChat = () => {
   const { chats, loggedIn, setChats } = useGlobalContext();
-  const [newDate, setNewDate] = useState('');
   const newMessage = useRef();
-
-  useEffect(() => {
-    if (!chats) return null;
-    const date = new Date().toLocaleDateString('zh-CN').split('/').join('-');
-    const time = new Date().toLocaleTimeString('en-US').slice(0, 8);
-    setNewDate(`[${date} ${time}]`);
-    setChats(chats);
-  }, [chats]);
 
   // render messages in the localstorage
   const renderMessage = chats.map((chat) => {
@@ -28,27 +25,22 @@ const GroupChat = () => {
     );
   });
 
-  const handlerSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!newMessage.current.value.trim()) {
       newMessage.current.value = '';
       return alert('Please write a message');
     }
 
     const chat = {
-      date: newDate,
+      date: getDateTime(),
       sender: loggedIn.fullName,
       message: newMessage.current.value,
     };
 
     setChats((prevChat) => [...prevChat, chat]);
-    chats.push(chat);
-    localStorage.setItem('chats', JSON.stringify(chats));
     newMessage.current.value = '';
-  };
-
-  const reloadPage = () => {
-    window.location.reload();
   };
 
   return (
@@ -61,7 +53,7 @@ const GroupChat = () => {
       <div className="conversation-wrapper">
         <div className="conversation-inner-wrapper">{renderMessage}</div>
       </div>
-      <form className="send-message-form" onSubmit={handlerSubmit}>
+      <form className="send-message-form" onSubmit={handleSubmit}>
         <label className="sender-name">{loggedIn.fullName}</label>
         <input
           ref={newMessage}
@@ -81,7 +73,7 @@ const GroupChat = () => {
             type="button"
             name="refresh"
             value="Refresh"
-            onClick={() => reloadPage()}
+            onClick={() => window.location.reload()}
           />
         </div>
       </form>

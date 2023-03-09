@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import useGlobalContext from '../hooks/useGlobalContext';
 import '../styles/GroupChat.css';
 
+// helper funciton returns data and time
 const getDateTime = () => {
   const date = new Date().toLocaleDateString('zh-CN').split('/').join('-');
   const time = new Date().toLocaleTimeString('en-US').slice(0, 8);

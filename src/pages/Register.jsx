@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import ValidateEmail from '../helper/ValidateEmail';
 import useGlobalContext from '../hooks/useGlobalContext';
 
-const initialValue = {
-  id: Number(new Date()),
-  fullName: '',
-  email: '',
-  password: '',
-  isLoggedIn: false,
-};
-
 const Register = () => {
+  const initialValue = {
+    id: Number(new Date()),
+    fullName: '',
+    email: '',
+    password: '',
+    isLoggedIn: false,
+  };
+
   const { users, setUsers } = useGlobalContext();
   const [userValues, setUserValues] = useState(initialValue);
   const [formErrors, setFormErrors] = useState({});

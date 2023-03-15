@@ -42,22 +42,19 @@ const AddUploadModal = ({ setShowAddUpload, dispatch }) => {
   return (
     <div
       className="manage-documents-modal-container"
-      id="upload-modal-container"
-    >
+      id="upload-modal-container">
       <div className="manage-documents-header-wrapper">
         <span></span>
         <h4>Upload</h4>
         <button
           className="close-button"
-          onClick={() => setShowAddUpload(false)}
-        >
+          onClick={() => setShowAddUpload(false)}>
           &#10005;
         </button>
       </div>
       <form
         className="form-manage-documents-modal"
-        onSubmit={(e) => handleUpload(e)}
-      >
+        onSubmit={(e) => handleUpload(e)}>
         <div>
           <label>Label</label>
           <input

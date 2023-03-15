@@ -16,6 +16,7 @@ export default function Share() {
   const [selectedToDelete, setSelectedToDelete] = useState('');
 
   // display list of name of the user who selected to be shared with
+
   const renderShared = selectedObj.sharedUploads.map((shared) => {
     return (
       <tr key={shared}>
@@ -26,8 +27,7 @@ export default function Share() {
             onClick={() => {
               setShowDeleteModal(true);
               setSelectedToDelete(shared);
-            }}
-          >
+            }}>
             Remove
           </button>
         </td>
@@ -91,8 +91,7 @@ export default function Share() {
         <select
           ref={selectButton}
           className="add-sharing-select"
-          name="user-to-share"
-        >
+          name="user-to-share">
           {renderOptions}
         </select>
         <input

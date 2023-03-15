@@ -73,8 +73,7 @@ const DeleteModal = ({
         <p className="confirm-deletion-title">Confirm File Deletion</p>
         <button
           className="close-button"
-          onClick={() => setShowDeleteModal(false)}
-        >
+          onClick={() => setShowDeleteModal(false)}>
           &#10005;
         </button>
       </div>
@@ -93,14 +92,12 @@ const DeleteModal = ({
             } else {
               handleDeleteShared();
             }
-          }}
-        >
+          }}>
           Ok
         </button>
         <button
           className="modal-button"
-          onClick={() => setShowDeleteModal(false)}
-        >
+          onClick={() => setShowDeleteModal(false)}>
           Cancel
         </button>
       </div>

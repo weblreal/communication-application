@@ -66,8 +66,7 @@ const ManageDocuments = () => {
             onClick={() => {
               setShowEditModal(!showEditModal);
               setToEdit(upload);
-            }}
-          >
+            }}>
             Edit
           </button>
           |
@@ -76,8 +75,7 @@ const ManageDocuments = () => {
             onClick={() => {
               setShowDeleteModal(true);
               setToDelete(upload);
-            }}
-          >
+            }}>
             Delete
           </button>
           |
@@ -143,8 +141,7 @@ const ManageDocuments = () => {
       )}
       <button
         className="add-upload-button"
-        onClick={() => setShowAddUpload(!showAddUpload)}
-      >
+        onClick={() => setShowAddUpload(!showAddUpload)}>
         + Add Upload
       </button>
       {showEditModal && (

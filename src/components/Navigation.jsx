@@ -26,8 +26,7 @@ const Navigation = () => {
           return isActive ? 'nav-button active-page' : 'nav-button';
         }}
         to={link.path}
-        onClick={link.logout && link.logout}
-      >
+        onClick={link.logout && link.logout}>
         {link.label}
       </NavLink>
     );

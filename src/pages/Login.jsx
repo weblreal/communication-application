@@ -35,8 +35,7 @@ const Login = () => {
       <p
         className={
           error ? 'error-message-login shake-message' : 'error-message-login'
-        }
-      >
+        }>
         Wrong Email or Password
       </p>
       <form className="default-form" onSubmit={handleSubmit}>

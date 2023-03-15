@@ -24,16 +24,14 @@ const EditModal = ({ setShowEditModal, toEdit, dispatch }) => {
         <h4>Edit</h4>
         <button
           className="close-button"
-          onClick={() => setShowEditModal(false)}
-        >
+          onClick={() => setShowEditModal(false)}>
           &#10005;
         </button>
       </div>
 
       <form
         action="#"
-        className="form-manage-documents-modal form-manage-documents-modal-edit"
-      >
+        className="form-manage-documents-modal form-manage-documents-modal-edit">
         <div>
           <label>Label</label>
           <input

@@ -19,8 +19,7 @@ const ManageUsers = () => {
           <Link
             to="/manageuser/editusers"
             className="edit-button button-table-modifier"
-            state={user.id}
-          >
+            state={user.id}>
             Edit
           </Link>
           {loggedIn.id !== user.id && (
@@ -29,8 +28,7 @@ const ManageUsers = () => {
               onClick={() => {
                 setShowDeleteModal(true);
                 setToDelete(user);
-              }}
-            >
+              }}>
               | Delete
             </button>
           )}

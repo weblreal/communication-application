@@ -22,11 +22,6 @@ const EditUsers = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const userObj = useMemo(
-    () => users.find((user) => user.id === location.state),
-    [users]
-  );
-
   // inital setup for userUploads, userChats, and user
   useEffect(() => {
     const user = users.find((user) => user.id === location.state);
@@ -44,9 +39,9 @@ const EditUsers = () => {
   const updateShareUploads = (fullNameInput) => {
     const copyMyUploads = [...myUploads];
     copyMyUploads.forEach((upload) => {
-      if (upload.sharedUploads.includes(userObj.fullName)) {
+      if (upload.sharedUploads.includes(user.fullName)) {
         upload.sharedUploads.splice(
-          upload.sharedUploads.indexOf(userObj.fullName),
+          upload.sharedUploads.indexOf(user.fullName),
           1,
           fullNameInput
         );

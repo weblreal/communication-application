@@ -40,7 +40,7 @@ const GroupChat = () => {
       message: newMessage.current.value,
     };
 
-    setChats((prevChat) => [...prevChat, chat]);
+    setChats([...chats, chat]);
     newMessage.current.value = '';
   };
 

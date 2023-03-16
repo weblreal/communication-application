@@ -65,7 +65,7 @@ const Register = () => {
       password: userValues.password,
       isLoggedIn: false,
     };
-    setUsers((prevUsers) => [...prevUsers, newUser]);
+    setUsers([...users, newUser]);
     navigate('/registersuccessful');
   };
 

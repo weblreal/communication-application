@@ -16,7 +16,6 @@ export default function Share() {
   const [selectedToDelete, setSelectedToDelete] = useState('');
 
   // display list of name of the user who selected to be shared with
-
   const renderShared = selectedObj.sharedUploads.map((shared) => {
     return (
       <tr key={shared}>
